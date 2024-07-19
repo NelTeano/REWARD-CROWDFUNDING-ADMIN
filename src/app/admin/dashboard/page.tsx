@@ -32,7 +32,7 @@ export default function Page() {
                         Loading
                     </div>
                 ) : (
-                    <div>
+                    <div className='bg-cyan'>
                         Welcome Admin {userRole}
                     </div>
                 )}

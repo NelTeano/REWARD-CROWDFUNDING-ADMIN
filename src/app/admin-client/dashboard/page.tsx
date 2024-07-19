@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 
 import { useAuth, useSession } from '@clerk/nextjs';
 import { checkUserRole } from '@/utils/checkUserRole';
+import Navbar from '@/components/navbar/page'
 
 export default function Page() {
     const { isLoaded } = useAuth();
