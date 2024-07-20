@@ -1,27 +1,63 @@
 'use client'
+
+// AUTH CLERK
+import { useAuth, useUser, SignOutButton} from "@clerk/nextjs";
+
+// SHADCN THEME
+import { useTheme } from "next-themes"
+
+// ICONS
+import { Moon, Sun } from "lucide-react"
+
+// COMPONENTS
+import Link from "next/link";
 import Image from "next/image";
 
-import { useAuth, useUser, SignOutButton} from "@clerk/nextjs";
-import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 
 export default function Home() {
 
   const { isLoaded, isSignedIn} = useAuth();
+  const { setTheme } = useTheme()
   
 
   console.log('is signed in?: ', isSignedIn)
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
+      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex bg-darkBlue">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-darkGray-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           Get started by editing&nbsp;
           <code className="font-mono font-bold">src/app/page.tsx </code>
           {isSignedIn && <SignOutButton>Sign Out</SignOutButton>}
           <Link href={'/admin/dashboard'}>Admin</Link>
           <Link href={'/admin-client/dashboard'}>Admin Client</Link>
+
+          <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="icon">
+              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <span className="sr-only">Toggle theme</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => setTheme("light")}>
+              Light
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("dark")}>
+              Dark
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         </p>
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
           <a

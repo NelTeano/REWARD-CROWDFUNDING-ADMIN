@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+
 // PROVIDER
 import {
   ClerkProvider,
@@ -10,6 +11,9 @@ import {
   SignedOut,
   UserButton
 } from '@clerk/nextjs'
+
+import { ThemeProvider } from "@/components/theme/theme-provider"
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,19 +35,26 @@ export default function RootLayout({
         },
       }}
     >
-      <html lang="en">
-        <body className={inter.className}>
-          <header>
-              <SignedOut>
-                <SignInButton />
-              </SignedOut>
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-          </header>
-            <main>
-              {children}
-            </main>
+      <html lang="en" suppressHydrationWarning={true}>
+        <body className={inter.className} >
+            {/* <header>
+                <SignedOut>
+                  <SignInButton />
+                  </SignedOut>
+                  <SignedIn>
+                  <UserButton />
+                  </SignedIn>
+            </header> */}
+              <main>
+                  <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                  >
+                    {children}
+                  </ThemeProvider>
+              </main>
         </body>
       </html>
     </ClerkProvider>

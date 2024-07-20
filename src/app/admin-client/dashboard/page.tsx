@@ -5,7 +5,13 @@ import { redirect } from 'next/navigation'
 
 import { useAuth, useSession } from '@clerk/nextjs';
 import { checkUserRole } from '@/utils/checkUserRole';
+
+
+// COMPONENTS
 import Navbar from '@/components/navbar/page'
+import SalesChart from '@/components/sales-graph/page'
+
+
 
 export default function Page() {
     const { isLoaded } = useAuth();
@@ -33,6 +39,7 @@ export default function Page() {
                 ) : (
                     <div>
                         Welcome Admin-Client {userRole}
+                        <SalesChart/>
                     </div>
                 )}
             </React.Fragment>
